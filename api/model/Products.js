@@ -3,7 +3,7 @@ const db = require('../config')
 class Products{
     fetchProducts(req, res){
         const query = `
-            SELECT ProductsID, ProductsName, Quantity, Price, Category, ProdUrl
+            SELECT prodID, prodName, quantity, amount, Category, prodUrl
             FROM Products
         `
         db.query(query, (err, data) => {
@@ -14,11 +14,11 @@ class Products{
             });
           });
     }
-    fetchProducts(req, res){
+    fetchProduct(req, res){
         const query = `
-        SELECT ProductsID, ProductsName, Quantity, Price, Category, ProdUrl 
+            SELECT prodID, prodName, quantity, amount, Category, prodUrl 
             FROM Products 
-            WHERE ProductsID = ${req.params.id}
+            WHERE prodID = ${req.params.prodID}
         `
         db.query(query, (err, result)=>{
             if (err) throw err
@@ -40,11 +40,11 @@ class Products{
             })
         })
     }
-    removeProducts(req, res){
+    removeProduct(req, res){
         const query = `
-            DELETE FROM Products WHERE ProductsID = ${req.params.ProductsID}
+            DELETE FROM Products WHERE prodID = ${req.params.prodID}
         `
-        db.query(query, [req.params.ProductsID], (err)=>{
+        db.query(query, [req.params.prodID], (err)=>{
             if (err) throw err
             res.json({
                 status: res.statusCode,
@@ -54,9 +54,9 @@ class Products{
     }
     updateProduct(req, res){
         const query = `
-            UPDATE Products SET ? WHERE ProductsID = ${req.params.ProductsID}
+            UPDATE Products SET ? WHERE prodID = ${req.params.prodID}
         `
-        db.query(query, [req.params.ProductsID], (err)=>{
+        db.query(query, [req.body, req.params.prodID], (err)=>{
             if (err) throw err
             res.json({
                 status: res.statusCode,

@@ -6,7 +6,7 @@ const { errorHandling } = require('./middleware/ErrorHandling')
 const port = +process.env.PORT || 3000;
 const cors = require("cors");
 
-app.use(express.static('./api/static'),
+app.use(express.static('./static'),
   express.urlencoded({ 
     extended: false 
   }),
